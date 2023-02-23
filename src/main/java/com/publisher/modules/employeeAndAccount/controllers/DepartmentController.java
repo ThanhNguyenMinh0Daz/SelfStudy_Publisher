@@ -30,7 +30,7 @@ public class DepartmentController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
@@ -45,7 +45,7 @@ public class DepartmentController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
@@ -59,7 +59,7 @@ public class DepartmentController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
     
@@ -74,7 +74,7 @@ public class DepartmentController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 

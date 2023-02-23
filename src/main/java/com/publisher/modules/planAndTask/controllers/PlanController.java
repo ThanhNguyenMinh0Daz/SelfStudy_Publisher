@@ -30,7 +30,7 @@ public class PlanController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
@@ -45,7 +45,7 @@ public class PlanController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
@@ -59,7 +59,7 @@ public class PlanController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
     
@@ -74,12 +74,28 @@ public class PlanController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
-
     /* DELETE */
+    @DeleteMapping(path = "/v1/update")
+    public ResponseEntity<Object> deletePlan(
+            @RequestParam(required = true) int planId) {
+        try {
+            boolean isDeleted = planService.deletePlan(planId);
+            
+            if (!isDeleted) {
+                return ResponseEntity.internalServerError()
+                        .body("Unable to delete Plan with Id: " + planId); }
+
+            return ResponseEntity.ok().body("Deleted Plan with Id: " + planId);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
 
     /* ================================================= VERSION 1 ================================================= */
 

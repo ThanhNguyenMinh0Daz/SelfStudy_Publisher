@@ -19,19 +19,19 @@ public class PlanLogController {
 
 /* ==================================================== VERSION 1 ==================================================== */
 /* CREATE */
-    @PostMapping(path = "/v1/create")
-    public ResponseEntity<Object> createPlanLog(
-            @RequestBody PlanLogCreateDTO createDTO) {
-        try {
-            PlanLogReadDTO readDTO = planLogService.createPlanLogByDTO(createDTO);
-
-            return ResponseEntity.ok().body(readDTO);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            return ResponseEntity.internalServerError().body(e);
-        }
-    }
+//    @PostMapping(path = "/v1/create")
+//    public ResponseEntity<Object> createPlanLog(
+//            @RequestBody PlanLogCreateDTO createDTO) {
+//        try {
+//            PlanLogReadDTO readDTO = planLogService.createPlanLogByDTO(createDTO);
+//
+//            return ResponseEntity.ok().body(readDTO);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//
+//            return ResponseEntity.internalServerError().body(e.getMessage());
+//        }
+//    }
 
 /* READ */
 @GetMapping(path = "/v1/get/id")
@@ -44,7 +44,7 @@ public ResponseEntity<Object> getPlanLogById(
     } catch (Exception e) {
         e.printStackTrace();
 
-        return ResponseEntity.internalServerError().body(e);
+        return ResponseEntity.internalServerError().body(e.getMessage());
     }
 }
     @GetMapping(path = "/v1/getAll/id")
@@ -57,7 +57,7 @@ public ResponseEntity<Object> getPlanLogById(
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
@@ -72,25 +72,24 @@ public ResponseEntity<Object> getPlanLogById(
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
     
 /* UPDATE */
-    @PutMapping(path = "/v1/update")
-    public ResponseEntity<Object> updatePlanLog(
-            @RequestBody PlanLogUpdateDTO updateDTO) {
-        try {
-            PlanLogReadDTO readDTO = planLogService.updatePlanLogByDTO(updateDTO);
-
-            return ResponseEntity.ok().body(readDTO);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            return ResponseEntity.internalServerError().body(e);
-        }
-    }
-
+//    @PutMapping(path = "/v1/update")
+//    public ResponseEntity<Object> updatePlanLog(
+//            @RequestBody PlanLogUpdateDTO updateDTO) {
+//        try {
+//            PlanLogReadDTO readDTO = planLogService.updatePlanLogByDTO(updateDTO);
+//
+//            return ResponseEntity.ok().body(readDTO);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//
+//            return ResponseEntity.internalServerError().body(e.getMessage());
+//        }
+//    }
 
 /* DELETE */
 

@@ -6,9 +6,13 @@ public enum LogReason {
     PROGRESS("Progress update log");
     /* ... */
 
-    public String stringValue;
+    private final String stringValue;
 
     LogReason(String stringValue) {
         this.stringValue = stringValue;
+    }
+
+    public String getStringValue() {
+        return stringValue;
     }
 }

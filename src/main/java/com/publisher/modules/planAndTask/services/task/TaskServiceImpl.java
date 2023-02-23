@@ -98,8 +98,8 @@ public class TaskServiceImpl implements TaskService {
     public TaskReadDTO getDTOById(int taskId) throws Exception {
         Task task = getById(taskId);
 
-        if (task == null)
-            return null;
+        if (task == null) {
+            return null; }
 
         return dtoWrapperSingle(task);
     }
@@ -109,8 +109,8 @@ public class TaskServiceImpl implements TaskService {
         List<Task> taskList =
                 taskRepository.findAllByTaskIdIn(taskIdCollection);
 
-        if (taskList.isEmpty())
-            return null;
+        if (taskList.isEmpty()) {
+            return null; }
 
         return taskList;
     }
@@ -119,8 +119,8 @@ public class TaskServiceImpl implements TaskService {
         List<Task> taskList =
                 getAllByIdIn(taskIdCollection);
 
-        if (taskList == null)
-            return null;
+        if (taskList == null) {
+            return null; }
 
         return dtoWrapperBulk(taskList);
     }
@@ -130,8 +130,8 @@ public class TaskServiceImpl implements TaskService {
         List<Task> taskList =
                 taskRepository.findAllByPlanId(planId);
 
-        if (taskList.isEmpty())
-            return null;
+        if (taskList.isEmpty()) {
+            return null; }
 
         return taskList;
     }
@@ -140,8 +140,8 @@ public class TaskServiceImpl implements TaskService {
         List<Task> taskList =
                 getAllByPlanId(planId);
 
-        if (taskList == null)
-            return null;
+        if (taskList == null) {
+            return null; }
 
         return taskList.stream()
                 .map(task -> {
@@ -164,8 +164,8 @@ public class TaskServiceImpl implements TaskService {
         List<Task> taskList =
                 getAllByPlanIdIn(planIdCollection);
 
-        if (taskList == null)
-            return null;
+        if (taskList == null) {
+            return null; }
 
         return dtoWrapperBulk(taskList);
     }

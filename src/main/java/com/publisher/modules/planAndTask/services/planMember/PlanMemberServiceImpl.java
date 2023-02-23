@@ -41,27 +41,27 @@ public class PlanMemberServiceImpl implements PlanMemberService {
 
         /* Validate input */
         Timestamp memberTo = planMember.getMemberTo();
-        if (memberTo != null)
-            if (planMember.getMemberFrom().after(memberTo))
+        if (memberTo != null) {
+            if (planMember.getMemberFrom().after(memberTo)) {
                 throw new  IllegalArgumentException(
-                        "FromDate cannot be after ToDate. Create Aborted.");
+                        "FromDate cannot be after ToDate. Create Aborted."); } }
 
         /* Check duplicate */
         /* TODO: Integrate memberFrom - To into check duplicate, ignore already expired */
-        if (planMemberRepository.isDuplicateInsert(planId, employeeId))
+        if (planMemberRepository.isDuplicateInsert(planId, employeeId)) {
             throw new IllegalArgumentException(
-                    "Duplication found when creating Plan. Create Aborted.");
+                    "Duplication found when creating Plan. Create Aborted."); }
 
         /* Check FK */
         Plan plan = planService.getByIdLazy(planId);
-        if (plan == null)
+        if (plan == null) {
             throw new IllegalArgumentException(
-                    "No Plan found with Id: " + planId + ". Create Aborted.");
+                    "No Plan found with Id: " + planId + ". Create Aborted."); }
 
         Employee employee = employeeService.getByIdLazy(employeeId);
-        if (employee == null)
+        if (employee == null) {
             throw new IllegalArgumentException(
-                    "No Employee found with Id: " + employeeId + ". Create Aborted.");
+                    "No Employee found with Id: " + employeeId + ". Create Aborted."); }
 
         planMember.setPlan(plan);
         planMember.setEmployee(employee);
@@ -101,8 +101,8 @@ public class PlanMemberServiceImpl implements PlanMemberService {
     public PlanMemberReadDTO getDTOById(int memberId) throws Exception {
         PlanMember planMember = getById(memberId);
 
-        if (planMember == null)
-            return null;
+        if (planMember == null) {
+            return null; }
 
         return dtoWrapperSingle(planMember);
     }
@@ -112,8 +112,8 @@ public class PlanMemberServiceImpl implements PlanMemberService {
         List<PlanMember> planMemberList =
                 planMemberRepository.findAllByMemberIdIn(memberIdCollection);
 
-        if (planMemberList.isEmpty())
-            return null;
+        if (planMemberList.isEmpty()) {
+            return null; }
 
         return planMemberList;
     }
@@ -122,8 +122,8 @@ public class PlanMemberServiceImpl implements PlanMemberService {
         List<PlanMember> planMemberList =
                 getAllByIdIn(memberIdCollection);
 
-        if (planMemberList == null)
-            return null;
+        if (planMemberList == null) {
+            return null; }
 
         return dtoWrapperBulk(planMemberList);
     }
@@ -134,8 +134,8 @@ public class PlanMemberServiceImpl implements PlanMemberService {
         List<PlanMember> planMemberList =
                 planMemberRepository.findAllByPlanId(planId);
 
-        if (planMemberList.isEmpty())
-            return null;
+        if (planMemberList.isEmpty()) {
+            return null; }
 
         return planMemberList;
     }
@@ -144,8 +144,8 @@ public class PlanMemberServiceImpl implements PlanMemberService {
         List<PlanMember> planMemberList =
                 getAllByPlanId(planId);
 
-        if (planMemberList == null)
-            return null;
+        if (planMemberList == null) {
+            return null; }
 
         return dtoWrapperBulk(planMemberList);
     }
@@ -155,8 +155,8 @@ public class PlanMemberServiceImpl implements PlanMemberService {
         List<PlanMember> planMemberList =
                 planMemberRepository.findAllByPlanIdIn(planIdCollection);
 
-        if (planMemberList.isEmpty())
-            return null;
+        if (planMemberList.isEmpty()) {
+            return null; }
 
         return planMemberList;
     }
@@ -165,8 +165,8 @@ public class PlanMemberServiceImpl implements PlanMemberService {
         List<PlanMember> planMemberList =
                 getAllByPlanIdIn(planIdCollection);
 
-        if (planMemberList == null)
-            return null;
+        if (planMemberList == null) {
+            return null; }
 
         return dtoWrapperBulk(planMemberList);
     }
@@ -177,8 +177,8 @@ public class PlanMemberServiceImpl implements PlanMemberService {
         List<PlanMember> planMemberList =
                 planMemberRepository.findAllByEmployeeId(employeeId);
 
-        if (planMemberList.isEmpty())
-            return null;
+        if (planMemberList.isEmpty()) {
+            return null; }
 
         return planMemberList;
     }
@@ -187,8 +187,8 @@ public class PlanMemberServiceImpl implements PlanMemberService {
         List<PlanMember> planMemberList =
                 getAllByEmployeeId(employeeId);
 
-        if (planMemberList == null)
-            return null;
+        if (planMemberList == null) {
+            return null; }
 
         return dtoWrapperBulk(planMemberList);
     }
@@ -198,8 +198,8 @@ public class PlanMemberServiceImpl implements PlanMemberService {
         List<PlanMember> planMemberList =
                 planMemberRepository.findAllByEmployeeIdIn(employeeIdCollection);
 
-        if (planMemberList.isEmpty())
-            return null;
+        if (planMemberList.isEmpty()) {
+            return null; }
 
         return planMemberList;
     }
@@ -208,8 +208,8 @@ public class PlanMemberServiceImpl implements PlanMemberService {
         List<PlanMember> planMemberList =
                 getAllByEmployeeIdIn(employeeIdCollection);
 
-        if (planMemberList == null)
-            return null;
+        if (planMemberList == null) {
+            return null; }
 
         return dtoWrapperBulk(planMemberList);
     }

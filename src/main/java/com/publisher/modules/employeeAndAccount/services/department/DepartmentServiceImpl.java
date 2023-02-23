@@ -33,9 +33,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         /* Validate input */
 
         /* Check duplicate */
-        if (departmentRepository.isDuplicateInsert(department.getDepartmentName()))
+        if (departmentRepository.isDuplicateInsert(department.getDepartmentName())) {
             throw new IllegalArgumentException(
-                    "Duplication found when creating Department. Create Aborted.");
+                    "Duplication found when creating Department. Create Aborted."); }
 
         /* Check FK */
 
@@ -65,8 +65,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentReadDTO getDTOById(int departmentId) throws Exception {
         Department department = getById(departmentId);
 
-        if (department == null)
-            return null;
+        if (department == null) {
+            return null; }
 
         return dtoWrapperSingle(department);
     }
@@ -76,8 +76,8 @@ public class DepartmentServiceImpl implements DepartmentService {
         List<Department> departmentList =
                 departmentRepository.findAllByDepartmentIdIn(departmentIdCollection);
 
-        if (departmentList.isEmpty())
-            return null;
+        if (departmentList.isEmpty()) {
+            return null; }
 
         return departmentList;
     }
@@ -86,8 +86,8 @@ public class DepartmentServiceImpl implements DepartmentService {
         List<Department> departmentList =
                 getAllByIdIn(departmentIdCollection);
 
-        if (departmentList == null)
-            return null;
+        if (departmentList == null) {
+            return null; }
 
         return dtoWrapperBulk(departmentList);
     }

@@ -38,6 +38,8 @@ public class PlanLogServiceImpl implements PlanLogService {
             throw new IllegalArgumentException(
                     "StartDate cannot be after EndDate. Create Aborted."); }
 
+        /* Check Duplicate */ /* Allow duplicate */
+
         /* Check FK */
         Plan plan = planLog.getPlan();
         if (plan == null) {
@@ -53,6 +55,7 @@ public class PlanLogServiceImpl implements PlanLogService {
             throw new IllegalArgumentException(
                     "PlanId mismatch: " + plan.getPlanId() + " vs" + planLog.getPlanId() + ". Create Aborted."); }
 
+        /* Create Log */
         return planLogRepository.saveAndFlush(planLog);
     }
     @Override
@@ -79,8 +82,8 @@ public class PlanLogServiceImpl implements PlanLogService {
     public PlanLogReadDTO getDTOById(int planLogId) throws Exception {
         PlanLog planLog = getById(planLogId);
 
-        if (planLog == null)
-            return null;
+        if (planLog == null) {
+            return null; }
 
         return dtoWrapperSingle(planLog);
     }
@@ -90,8 +93,8 @@ public class PlanLogServiceImpl implements PlanLogService {
         List<PlanLog> planLogList =
                 planLogRepository.findAllByLogIdIn(planLogIdCollection);
 
-        if (planLogList.isEmpty())
-            return null;
+        if (planLogList.isEmpty()) {
+            return null; }
 
         return planLogList;
     }
@@ -100,8 +103,8 @@ public class PlanLogServiceImpl implements PlanLogService {
         List<PlanLog> planLogList =
                 getAllByIdIn(planLogIdCollection);
 
-        if (planLogList == null)
-            return null;
+        if (planLogList == null) {
+            return null; }
 
         return dtoWrapperBulk(planLogList);
     }
@@ -119,8 +122,8 @@ public class PlanLogServiceImpl implements PlanLogService {
         PlanLog planLog =
                 getLatestByPlanId(planId);
 
-        if (planLog == null)
-            return null;
+        if (planLog == null) {
+            return null; }
 
         return dtoWrapperSingle(planLog);
     }
@@ -130,8 +133,8 @@ public class PlanLogServiceImpl implements PlanLogService {
         List<PlanLog> planLogList =
                 planLogRepository.findAllByPlanId(planId);
 
-        if (planLogList.isEmpty())
-            return null;
+        if (planLogList.isEmpty()) {
+            return null; }
 
         return planLogList;
     }
@@ -140,8 +143,8 @@ public class PlanLogServiceImpl implements PlanLogService {
         List<PlanLog> planLogList =
                 getAllByPlanId(planId);
 
-        if (planLogList == null)
-            return null;
+        if (planLogList == null) {
+            return null; }
 
         return dtoWrapperBulk(planLogList);
     }

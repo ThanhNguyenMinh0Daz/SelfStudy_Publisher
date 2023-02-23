@@ -43,22 +43,22 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (!birthDate.isBefore(currentDate)) {
             throw new IllegalArgumentException(
                     "BirthDate cannot be equal or after today. Create Aborted.");
-        } else if (ChronoUnit.YEARS.between(birthDate, currentDate) < MIN_EMPLOYEE_AGE)
+        } else if (ChronoUnit.YEARS.between(birthDate, currentDate) < MIN_EMPLOYEE_AGE) {
             throw new IllegalArgumentException(
-                    "This BirthDate indicate that this Employee is not of legal working age. Create Aborted.");
+                    "This BirthDate indicate that this Employee is not of legal working age. Create Aborted."); }
 
         /* TODO: Check valid nationalId */
 
         /* Check duplicate */
-        if (employeeRepository.isDuplicateInsert(employee.getNationalId()))
+        if (employeeRepository.isDuplicateInsert(employee.getNationalId())) {
             throw new IllegalArgumentException(
-                    "Duplication found when creating Employee. Create Aborted.");
+                    "Duplication found when creating Employee. Create Aborted."); }
 
         /* Check FK */
         Department department = departmentService.getById(departmentId);
-        if (department == null)
+        if (department == null) {
             throw new IllegalArgumentException(
-                    "No Department found with Id: " + departmentId + ". Create Aborted.");
+                    "No Department found with Id: " + departmentId + ". Create Aborted."); }
 
         employee.setDepartment(department);
 
@@ -94,8 +94,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeReadDTO getDTOById(int employeeId) throws Exception {
         Employee employee = getById(employeeId);
 
-        if (employee == null)
-            return null;
+        if (employee == null) {
+            return null; }
 
         return dtoWrapperSingle(employee);
     }
@@ -105,8 +105,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employeeList =
                 employeeRepository.findAllByEmployeeIdIn(employeeIdCollection);
 
-        if (employeeList.isEmpty())
-            return null;
+        if (employeeList.isEmpty()) {
+            return null; }
 
         return employeeList;
     }
@@ -115,8 +115,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employeeList =
                 getAllByIdIn(employeeIdCollection);
 
-        if (employeeList == null)
-            return null;
+        if (employeeList == null) {
+            return null; }
 
         return dtoWrapperBulk(employeeList);
     }

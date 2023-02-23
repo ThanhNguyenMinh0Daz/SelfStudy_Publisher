@@ -9,14 +9,12 @@ import com.publisher.modules.planAndTask.entities.PlanLog;
 import com.publisher.modules.planAndTask.repositories.PlanRepository;
 import com.publisher.modules.planAndTask.services.planLog.PlanLogService;
 import com.publisher.utils.enums.LogReason;
+import com.publisher.utils.enums.Status;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PlanServiceImpl implements PlanService {
@@ -42,15 +40,26 @@ public class PlanServiceImpl implements PlanService {
         if (planRepository.isDuplicateInsert(plan.getPlanCode())) {
             throw new IllegalArgumentException(
                     "Duplication found when creating Plan. Create Aborted."); }
-        
+
+        /* Check FK */
+        Integer parentPlanId = plan.getParentPlanId();
+        if (parentPlanId != null) {
+            Plan parentPlan = getByIdLazy(parentPlanId);
+            if (parentPlan == null) {
+                throw new IllegalArgumentException(
+                        "No Parent Plan found with Id: " + parentPlanId); }
+
+            plan.setParentPlan(parentPlan);
+        }
+
         /* Create Plan */
         plan = planRepository.saveAndFlush(plan);
         
         /* Create Log */
         try {
             PlanLog firstLog = mapper.map(plan, PlanLog.class);
-            firstLog.setPlan(plan); /* TODO: remove this, to save on space */
-            firstLog.setLogReason(LogReason.CREATE.stringValue);
+            firstLog.setPlan(plan);
+            firstLog.setLogReason(LogReason.CREATE.getStringValue());
             
             planLogService.createPlanLog(firstLog);
         } catch (Exception e) {
@@ -92,8 +101,8 @@ public class PlanServiceImpl implements PlanService {
     public PlanReadDTO getDTOById(int planId) throws Exception {
         Plan plan = getById(planId);
 
-        if (plan == null)
-            return null;
+        if (plan == null) {
+            return null; }
 
         return dtoWrapperSingle(plan);
     }
@@ -103,8 +112,8 @@ public class PlanServiceImpl implements PlanService {
         List<Plan> planList =
                 planRepository.findAllByPlanIdIn(planIdCollection);
 
-        if (planList.isEmpty())
-            return null;
+        if (planList.isEmpty()) {
+            return null; }
 
         return planList;
     }
@@ -113,8 +122,8 @@ public class PlanServiceImpl implements PlanService {
         List<Plan> planList =
                 getAllByIdIn(planIdCollection);
 
-        if (planList == null)
-            return null;
+        if (planList == null) {
+            return null; }
 
         return dtoWrapperBulk(planList);
     }
@@ -126,18 +135,29 @@ public class PlanServiceImpl implements PlanService {
 
         /* exists by Id */
         Plan oldPlan = getByIdLazy(planId);
-        if (oldPlan == null)
-            throw new IllegalArgumentException("No such Plan found with Id: " + planId);
+        if (oldPlan == null) {
+            throw new IllegalArgumentException("No such Plan found with Id: " + planId); }
 
         /* Validate input */
-        if (plan.getPlanStart().after(plan.getPlanEnd())) /* Check date */
+        if (plan.getPlanStart().after(plan.getPlanEnd())) {/* Check date */
             throw new IllegalArgumentException(
-                    "StartDate cannot be after EndDate. Update Aborted.");
+                    "StartDate cannot be after EndDate. Update Aborted."); }
 
         /* Check duplicate */
-        if (planRepository.isDuplicateUpdate(plan.getPlanCode(), planId))
+        if (planRepository.isDuplicateUpdate(plan.getPlanCode(), planId)) {
             throw new IllegalArgumentException(
-                    "Duplication found when updating Plan with Id: " + planId + ". Update Aborted.");
+                    "Duplication found when updating Plan with Id: " + planId + ". Update Aborted."); }
+
+        /* Check FK */
+        Integer parentPlanId = plan.getParentPlanId();
+        if (parentPlanId != null) {
+            Plan parentPlan = getByIdLazy(parentPlanId);
+            if (parentPlan == null) {
+                throw new IllegalArgumentException(
+                        "No Parent Plan found with Id: " + parentPlanId); }
+
+            plan.setParentPlan(parentPlan);
+        }
 
         /* Update Plan */
         plan = planRepository.saveAndFlush(plan);
@@ -145,21 +165,19 @@ public class PlanServiceImpl implements PlanService {
         /* Update Log */
         PlanLog latestLog;
         try {
+            /* Update latest log => old log */
             latestLog = planLogService.getLatestByPlanId(planId);
-            if (latestLog != null) { /* Has log, update latest log => old log */
+            if (latestLog != null) { /* Double check for null */
                 latestLog.setIsLatest(false);
-                latestLog.setPlan(plan); /* TODO: remove this, to save on space */
+                latestLog.setPlan(plan);
                 planLogService.updatePlanLog(latestLog);
-                latestLog = null; /* Refresh */
             }
 
+            /* Create new latest log */
             latestLog = mapper.map(plan, PlanLog.class);
-            latestLog.setPlan(plan); /* TODO: remove this, to save on space */
-            if (logReason == null) {
-                latestLog.setLogReason(LogReason.UPDATE.stringValue);
-            } else {
-                latestLog.setLogReason(logReason.stringValue);
-            }
+            latestLog.setPlan(plan);
+            latestLog.setLogReason(
+                    Objects.requireNonNullElse(logReason, LogReason.UPDATE).getStringValue());
 
             latestLog.setLogNote(logNote);
             planLogService.createPlanLog(latestLog);
@@ -187,11 +205,11 @@ public class PlanServiceImpl implements PlanService {
         /* exists by Id */
         Plan plan = getById(planId);
 
-        if (plan == null)
+        if (plan == null) {
             throw new IllegalArgumentException(
-                    "No such Plan found with Id: " + planId + ". Delete Aborted.");
+                    "No such Plan found with Id: " + planId + ". Delete Aborted."); }
 
-        plan.setStatus("DELETED");
+        plan.setStatus(Status.DELETED);
 
         /* TODO: replace with enum, deleted related, cascade */
 

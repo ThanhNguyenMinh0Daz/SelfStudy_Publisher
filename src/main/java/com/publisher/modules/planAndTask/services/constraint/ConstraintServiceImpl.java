@@ -53,8 +53,8 @@ public class ConstraintServiceImpl implements ConstraintService {
     public ConstraintReadDTO getDTOById(int constraintId) throws Exception {
         Constraint constraint = getById(constraintId);
 
-        if (constraint == null)
-            return null;
+        if (constraint == null) {
+            return null; }
 
         return dtoWrapperSingle(constraint);
     }
@@ -64,8 +64,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 constraintRepository.findAllByConstraintIdIn(constraintIdCollection);
 
-        if (constraintList.isEmpty())
-            return null;
+        if (constraintList.isEmpty()) {
+            return null; }
 
         return constraintList;
     }
@@ -74,8 +74,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 getAllByIdIn(constraintIdCollection);
 
-        if (constraintList == null)
-            return null;
+        if (constraintList == null) {
+            return null; }
 
         return dtoWrapperBulk(constraintList);
     }
@@ -86,8 +86,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 constraintRepository.findAllByConstraintPlanId(planId);
 
-        if (constraintList.isEmpty())
-            return null;
+        if (constraintList.isEmpty()) {
+            return null; }
 
         return constraintList;
     }
@@ -96,8 +96,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 getAllByConstraintPlanId(planId);
 
-        if (constraintList == null)
-            return null;
+        if (constraintList == null) {
+            return null; }
 
         return dtoWrapperBulk(constraintList);
     }
@@ -107,8 +107,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 constraintRepository.findAllByConstraintPlanIdIn(planIdCollection);
 
-        if (constraintList.isEmpty())
-            return null;
+        if (constraintList.isEmpty()) {
+            return null; }
 
         return constraintList;
     }
@@ -117,8 +117,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 getAllByConstraintPlanIdIn(planIdCollection);
 
-        if (constraintList == null)
-            return null;
+        if (constraintList == null) {
+            return null; }
 
         return dtoWrapperBulk(constraintList);
     }
@@ -128,8 +128,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 constraintRepository.findAllByAffectedPlanId(planId);
 
-        if (constraintList.isEmpty())
-            return null;
+        if (constraintList.isEmpty()) {
+            return null; }
 
         return constraintList;
     }
@@ -138,8 +138,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 getAllByAffectedPlanId(planId);
 
-        if (constraintList == null)
-            return null;
+        if (constraintList == null) {
+            return null; }
 
         return dtoWrapperBulk(constraintList);
     }
@@ -149,8 +149,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 constraintRepository.findAllByAffectedPlanIdIn(planIdCollection);
 
-        if (constraintList.isEmpty())
-            return null;
+        if (constraintList.isEmpty()) {
+            return null; }
 
         return constraintList;
     }
@@ -159,8 +159,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 getAllByAffectedPlanIdIn(planIdCollection);
 
-        if (constraintList == null)
-            return null;
+        if (constraintList == null) {
+            return null; }
 
         return dtoWrapperBulk(constraintList);
     }
@@ -171,8 +171,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 constraintRepository.findAllByConstraintTaskId(taskId);
 
-        if (constraintList.isEmpty())
-            return null;
+        if (constraintList.isEmpty()) {
+            return null; }
 
         return constraintList;
     }
@@ -181,8 +181,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 getAllByConstraintTaskId(taskId);
 
-        if (constraintList == null)
-            return null;
+        if (constraintList == null) {
+            return null; }
 
         return dtoWrapperBulk(constraintList);
     }
@@ -192,8 +192,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 constraintRepository.findAllByConstraintTaskIdIn(taskIdCollection);
 
-        if (constraintList.isEmpty())
-            return null;
+        if (constraintList.isEmpty()) {
+            return null; }
 
         return constraintList;
     }
@@ -202,8 +202,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 getAllByConstraintTaskIdIn(taskIdCollection);
 
-        if (constraintList == null)
-            return null;
+        if (constraintList == null) {
+            return null; }
 
         return dtoWrapperBulk(constraintList);
     }
@@ -213,8 +213,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 constraintRepository.findAllByAffectedTaskId(taskId);
 
-        if (constraintList.isEmpty())
-            return null;
+        if (constraintList.isEmpty()) {
+            return null; }
 
         return constraintList;
     }
@@ -223,8 +223,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 getAllByAffectedTaskId(taskId);
 
-        if (constraintList == null)
-            return null;
+        if (constraintList == null) {
+            return null; }
 
         return dtoWrapperBulk(constraintList);
     }
@@ -234,8 +234,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 constraintRepository.findAllByAffectedTaskIdIn(taskIdCollection);
 
-        if (constraintList.isEmpty())
-            return null;
+        if (constraintList.isEmpty()) {
+            return null; }
 
         return constraintList;
     }
@@ -244,8 +244,8 @@ public class ConstraintServiceImpl implements ConstraintService {
         List<Constraint> constraintList =
                 getAllByAffectedTaskIdIn(taskIdCollection);
 
-        if (constraintList == null)
-            return null;
+        if (constraintList == null) {
+            return null; }
 
         return dtoWrapperBulk(constraintList);
     }

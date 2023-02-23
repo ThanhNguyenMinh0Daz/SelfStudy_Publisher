@@ -1,7 +1,17 @@
 package com.publisher.utils.enums;
 
 public enum Status {
-    CREATED,
-    UPDATE,
-    DELETED
+    CREATED("CREATED"),
+    UPDATED("UPDATED"),
+    DELETED("DELETED");
+
+    private final String stringValue;
+
+    Status(String stringValue) {
+        this.stringValue = stringValue;
+    }
+
+    public String getStringValue() {
+        return stringValue;
+    }
 }

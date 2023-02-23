@@ -29,7 +29,7 @@ public class EmployeeController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
@@ -44,7 +44,7 @@ public class EmployeeController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
@@ -58,7 +58,7 @@ public class EmployeeController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
     
@@ -73,7 +73,7 @@ public class EmployeeController {
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.internalServerError().body(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 

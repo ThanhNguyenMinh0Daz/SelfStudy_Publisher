@@ -1,5 +1,6 @@
 package com.publisher.modules.planAndTask.entities;
 
+import com.publisher.utils.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,7 +43,7 @@ public class Plan {
     private Timestamp planEnd;
     
     @Column(name = "status", nullable = false, length = 45)
-    private String status;
+    private Status status;
 
     @OneToMany(mappedBy = "constraintPlan")
     private List<Constraint> constraintParticipationList;
